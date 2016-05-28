@@ -11,7 +11,8 @@ function ve() {
 
   case "$1" in
     -[lL]|--list|"")
-      echo `find ~/virtualenvs/* -type d -depth 0 | xargs basename`
+      if
+      echo `find ~/virtualenvs/* -maxdepth 0 -type d| xargs basename`
       return
       ;;
 
