@@ -61,7 +61,7 @@ function ve() {
       local VENV_PATH=$VENV_ROOT$1
       local actv=$VENV_PATH/bin/activate
       shift 1
-      if [! -s $actv ]; then  # virtualenv doesn't exist, let's create one
+      if [ ! -s $actv ]; then  # virtualenv doesn't exist, let's create one
         read -p "virtualenv $VENV_PATH $* : Is this OK? (y/n)" -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]
