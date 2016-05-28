@@ -1,16 +1,12 @@
 # Simple `virtualenv` wrapper
 
-A set of shell functions for activating Python virtualenv. It does exactly the
-same thing as I used to do by hand on daily basis.
+A set of shell functions for activating Python (virtualenv)[http://docs.python-guide.org/en/latest/dev/virtualenvs/]. I'm trying to keep this project as small as possible. 
 
-I'm trying to keep this project as small as possible.
-
-Compatible for Mac OS and Linux.
+Compatible for Mac OS and Linux, as of now.
 
 ## Installation
 
-You only need to get `ve.sh` file (by clone this repo or simply download it),
-and then add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
+`git clone` this repo, and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
 
 ```sh
 VENV_ROOT=$HOME/<path to your virtualenv directory>
