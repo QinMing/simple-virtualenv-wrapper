@@ -5,22 +5,18 @@
 # You are more than welcome to come together and make this better.
 
 function ve() {
-  local VENV_ROOT="$HOME/virtualenvs/"
-  # Change this to your favorate path
-  # Leave one '/' at the end
-
   case "$1" in
     -[lL]|--list|"")
-      echo `find ~/virtualenvs/* -maxdepth 0 -type d| xargs basename`
+      echo `find $VENV_ROOT/* -maxdepth 0 -type d | xargs basename`
       return
       ;;
 
     -[dD]|--delete)
-      read -p "rm -r $VENV_ROOT$2 : Is this OK? (y/n)" -n 1 -r
+      read -p "rm -r $VENV_ROOT/$2 : Is this OK? (y/n)" -n 1 -r
       echo
       if [[ $REPLY =~ ^[Yy]$ ]]
       then
-        rm -r $VENV_ROOT$2
+        rm -r $VENV_ROOT/$2
       fi
       return
       ;;
@@ -58,14 +54,14 @@ function ve() {
       ;;
 
     *)
-      local VENV_PATH=$VENV_ROOT$1
+      local VENV_PATH=$VENV_ROOT/$1
       local actv=$VENV_PATH/bin/activate
-      shift 1
       if [ ! -s $actv ]; then  # virtualenv doesn't exist, let's create one
         read -p "virtualenv $VENV_PATH $* : Is this OK? (y/n)" -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
+          shift 1
           virtualenv $VENV_PATH $*
         fi
       fi
