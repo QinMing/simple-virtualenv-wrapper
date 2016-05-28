@@ -9,7 +9,7 @@ Compatible for Mac OS and Linux, as of now.
 Create new virtualenv
 ```sh
 ~$ ve new_env
-virtualenv /Users/ming.qin/virtualenvs/new_env new_env : Is this OK? (y/n)y
+virtualenv /Users/ming/virtualenvs/new_env new_env : Is this OK? (y/n)y
 New python executable in /Users/ming/virtualenvs/new_env/bin/python
 Installing setuptools, pip, wheel...done.
 ```
@@ -31,7 +31,7 @@ Deactivate
 Remove
 ```sh
 ~$ ve -d new_env
-rm -r /Users/ming.qin/virtualenvs//new_env : Is this OK? (y/n)y
+rm -r /Users/ming/virtualenvs//new_env : Is this OK? (y/n)y
 ~$ ve
 env1
 ```
