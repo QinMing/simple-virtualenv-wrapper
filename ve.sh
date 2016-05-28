@@ -5,6 +5,9 @@
 # You are more than welcome to come together and make this better.
 
 function ve() {
+
+  # local VENV_ROOT=$HOME/virtualenvs
+
   case "$1" in
     -[lL]|--list|"")
       echo `find $VENV_ROOT/* -maxdepth 0 -type d | xargs basename`
@@ -21,7 +24,7 @@ function ve() {
       return
       ;;
 
-    -[pP]|--root)
+    -[rR]|--root)
       echo "not implemented yet"
       return
       ;;
@@ -46,7 +49,7 @@ function ve() {
       echo "  -e, --exit           Deactivate."
       echo "  -h, --help           Show this info."
       echo "  -l, --list           List existing virtualenvs (things in VENV_ROOT)."
-      echo "  -p, --root           Change the root path."
+      echo "  -r, --root           Change the root path."
       echo
       echo "Additional Options"
       echo "  be passed to virtualenv. Please see \`virtualenv -h\` for details"
