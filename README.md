@@ -1,26 +1,10 @@
 # Simple `virtualenv` wrapper
 
-A set of shell functions for activating Python (virtualenv)[http://docs.python-guide.org/en/latest/dev/virtualenvs/]. I'm trying to keep this project as small as possible. 
+A set of shell functions for activating Python [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/). I'm trying to keep this project as small as possible. 
 
 Compatible for Mac OS and Linux, as of now.
 
-## Installation
-
-`git clone` this repo, and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
-
-```sh
-VENV_ROOT=$HOME/<path to your virtualenv directory>
-source $HOME/<path to ve.sh>
-```
-
-Example:
-
-```sh
-VENV_ROOT=$HOME/virtualenvs
-source $HOME/git/simple-virtualenv-wrapper/ve.sh
-```
-
-## Usage
+## Intro
 
 Create new virtualenv
 ```sh
@@ -73,4 +57,20 @@ Options:
 Additional Options
   be passed to virtualenv. Please see `virtualenv -h` for details
 
+```
+
+## Installation
+
+`git clone` this repo, and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
+
+```sh
+VENV_ROOT=$HOME/<path to your virtualenv directory>
+source $HOME/<path to ve.sh>
+```
+
+Example:
+
+```sh
+VENV_ROOT=$HOME/virtualenvs
+source $HOME/git/simple-virtualenv-wrapper/ve.sh
 ```
