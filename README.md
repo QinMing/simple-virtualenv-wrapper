@@ -1,39 +1,34 @@
 # Simple `virtualenv` wrapper
 
-A set of shell functions for activating Python [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/). I'm trying to keep this project as small as possible. 
-
-Compatible for Mac OS and Linux, as of now.
+A single shell function that makes Python [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) easier to use. I'm trying to keep this project as small as possible. 
 
 ## Intro
 
 Create new virtualenv
 ```sh
+
 ~$ ve new_env
 virtualenv /Users/ming/virtualenvs/new_env new_env : Is this OK? (y/n)y
 New python executable in /Users/ming/virtualenvs/new_env/bin/python
 Installing setuptools, pip, wheel...done.
 ```
-Switch to a virtualenv
+Activate or deactivate a virtualenv
 ```sh
 ~$ ve new_env
 (new_env) ~$ ve -e
+~$
 ```
 List existing ones
 ```sh
-(new_env) ~$ ve
-env1 new_env
-```
-Deactivate
-```sh
-(new_env) ~$ ve -e
-~$
+~$ ve
+env1 env2 new_env
 ```
 Remove
 ```sh
 ~$ ve -d new_env
 rm -r /Users/ming/virtualenvs//new_env : Is this OK? (y/n)y
 ~$ ve
-env1
+env1 env2
 ```
 Help
 ```sh
@@ -53,10 +48,6 @@ Options:
   -h, --help           Show this info.
   -l, --list           List existing virtualenvs (things in VENV_ROOT).
   -p, --root           Change the root path.
-
-Additional Options
-  be passed to virtualenv. Please see `virtualenv -h` for details
-
 ```
 
 ## Installation
@@ -74,3 +65,5 @@ Example:
 VENV_ROOT=$HOME/virtualenvs
 source $HOME/git/simple-virtualenv-wrapper/ve.sh
 ```
+
+Compatible for Mac OS and Linux, as of now.
