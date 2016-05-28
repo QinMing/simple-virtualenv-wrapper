@@ -11,7 +11,6 @@ function ve() {
 
   case "$1" in
     -[lL]|--list|"")
-      if
       echo `find ~/virtualenvs/* -maxdepth 0 -type d| xargs basename`
       return
       ;;
@@ -31,6 +30,11 @@ function ve() {
       return
       ;;
 
+    -[eE]|--exit)
+      deactivate
+      return
+      ;;
+
     -*)
       echo "Simple virtualenv wrapper for Python"
       echo
@@ -42,10 +46,11 @@ function ve() {
       echo "                       Only when creating new environments, you can add"
       echo "                       options that will be passed to virtualenv."
       echo "                       See \`virtualenv -h\`"
+      echo "  -d, --delete <name>  Delete a virtualenv."
+      echo "  -e, --exit           Deactivate."
       echo "  -h, --help           Show this info."
       echo "  -l, --list           List existing virtualenvs (things in VENV_ROOT)."
       echo "  -p, --root           Change the root path."
-      echo "  -d, --delete <name>  Delete a virtualenv."
       echo
       echo "Additional Options"
       echo "  be passed to virtualenv. Please see \`virtualenv -h\` for details"
@@ -56,9 +61,7 @@ function ve() {
       local VENV_PATH=$VENV_ROOT$1
       local actv=$VENV_PATH/bin/activate
       shift 1
-      if [ -s $actv ]; then  # virtualenv exists
-        source $actv
-      else                   # virtualenv doesn't exist, let's create one
+      if [! -s $actv ]; then  # virtualenv doesn't exist, let's create one
         read -p "virtualenv $VENV_PATH $* : Is this OK? (y/n)" -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]
@@ -66,6 +69,7 @@ function ve() {
           virtualenv $VENV_PATH $*
         fi
       fi
+      source $actv
       return
       ;;
   esac
