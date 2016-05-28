@@ -50,9 +50,6 @@ function ve() {
       echo "  -h, --help           Show this info."
       echo "  -l, --list           List existing virtualenvs (things in VENV_ROOT)."
       echo "  -r, --root           Change the root path."
-      echo
-      echo "Additional Options"
-      echo "  be passed to virtualenv. Please see \`virtualenv -h\` for details"
       return
       ;;
 
