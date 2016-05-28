@@ -10,7 +10,8 @@ function ve() {
 
   case "$1" in
     -[lL]|--list|"")
-      echo `find $VENV_ROOT/* -maxdepth 0 -type d | xargs basename`
+      # echo `find $VENV_ROOT/* -maxdepth 0 -type d | xargs basename`
+      echo `ls -d $VENV_ROOT/* | xargs basename`
       return
       ;;
 
