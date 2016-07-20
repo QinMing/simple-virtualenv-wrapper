@@ -4,7 +4,7 @@ A single shell function that makes Python [virtualenv](http://docs.python-guide.
 
 ## Intro
 
-Create new virtualenv
+Create new virtualenv: `ve new_env_name`
 ```sh
 # $ virtualenv ~/virens/new_venv
 ~$ ve new_env
@@ -12,26 +12,15 @@ virtualenv /Users/ming/virens/new_env new_env : Is this OK? (y/n)y
 New python executable in /Users/ming/virens/new_env/bin/python
 Installing setuptools, pip, wheel...done.
 ```
-Activate or deactivate
-```sh
-# $ source ~/virens/new_venv/bin/activate
-~$ ve new_env
-# $ deactivate
-(new_env) ~$ ve -e
-~$
-```
-List existing ones
-```sh
-# $ ls  ~/virens/new_venv
-~$ ve
-env1 env2 new_env
-```
-Remove
-```sh
-~$ ve -d new_env
-rm -r /Users/ming/virens/new_env : Is this OK? (y/n)y
-~$
-```
+
+Activate: `ve env_name`. After you activate a venv once in a perticular folder, your venv name is remembered. Next time you can simply type `ve` in that folder to quickly activate the same venv.
+
+Deactivate (exit): `ve -e`
+
+List existing ones: `ve -l`
+
+Remove: `ve -d new_env`
+
 Help
 ```sh
 ~$ ve -h
@@ -53,8 +42,8 @@ Options:
 ```
 
 ## Installation
-
-`git clone` this repo and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
+1. Star this repo.
+1. `git clone` this repo and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
 
 ```sh
 VENV_ROOT=$HOME/<path to your virtualenv directory>
