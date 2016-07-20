@@ -31,6 +31,7 @@ Options:
   -e, --exit           Deactivate.
   -h, --help           Show this info.
   -l, --list           List existing virtualenvs (things in VENV_ROOT).
+  --history            Edit (vim) the history file.
   -p, --root           Change the root path.
 ```
 

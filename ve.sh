@@ -10,7 +10,7 @@ ve() {
   if [ ! -n "$VENV_ROOT" ]; then
     local VENV_ROOT=$HOME/virtualenvs
   fi
-  
+
   local HISTORY_FILE=$VENV_ROOT/.history
   if [ ! -f $HISTORY_FILE ]; then
     touch $HISTORY_FILE
@@ -62,6 +62,11 @@ ve() {
       return
       ;;
 
+    --history)
+      vim $HISTORY_FILE
+      return
+      ;;
+
     -*)
       echo "Simple virtualenv wrapper for Python"
       echo
@@ -77,6 +82,7 @@ ve() {
       echo "  -e, --exit           Deactivate."
       echo "  -h, --help           Show this info."
       echo "  -l, --list           List existing virtualenvs (things in VENV_ROOT)."
+      echo "  --history            Edit (vim) the history file. "
       echo "  -r, --root           Change the root path."
       return
       ;;
