@@ -4,18 +4,14 @@
 # Open source under MIT LICENSE.
 # You are more than welcome to come together and make this better.
 
-function ve() {
-  function get_storage_key() {
-    echo "/User/qinming/a_path" | sed 's/_/__/g' | sed 's/\//_/g'
-    return
-  }
+ve() {
 
   # Change path here, or add it as environment variable
   if [ ! -n "$VENV_ROOT" ]; then
     local VENV_ROOT=$HOME/virtualenvs
   fi
+  
   local HISTORY_FILE=$VENV_ROOT/.history
-
   if [ ! -f $HISTORY_FILE ]; then
     touch $HISTORY_FILE
   fi
@@ -23,9 +19,16 @@ function ve() {
   case "$1" in
 
     "")
-      ttest=/Users/qinming/git/flaskfirst
-      match=`cat $HISTORY_FILE | grep "$ttest:::"`
-      echo $match
+      local match=`cat $HISTORY_FILE | grep "$PWD:::"`
+      if [ -z $match ]; then # if empty string
+        ve -h
+      else
+        # -o only the matching part
+        # -e pattern
+        local right_part=`echo $match | grep -o -e ":::.*"`
+        # Truncate the first three ':', then activate virtualenv
+        ve ${right_part:3}
+      fi
       return
       ;;
 
@@ -79,18 +82,27 @@ function ve() {
       ;;
 
     *)
-      local VENV_PATH=$VENV_ROOT/$1
-      local actv=$VENV_PATH/bin/activate
+      local venv_name=$1
+      local venv_path=$VENV_ROOT/$1
+      local actv=$venv_path/bin/activate
       if [ ! -s $actv ]; then  # virtualenv doesn't exist, let's create one
-        read -p "virtualenv $VENV_PATH $* : Is this OK? (y/n)" -n 1 -r
+        read -p "virtualenv $venv_path $* : Is this OK? (y/n)" -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
           shift 1
-          virtualenv $VENV_PATH $*
+          virtualenv $venv_path $*
         fi
       fi
       source $actv
+      echo "\"$venv_name\" is now activated."
+
+      # update history file
+      local match=`cat $HISTORY_FILE | grep "$PWD:::"`
+      if [ -z $match ]; then # if empty string
+        echo "$PWD:::$venv_name" >> $HISTORY_FILE
+        echo "Next time, you can just type \`ve\` in this folder to activate $venv_name"
+      fi
       return
       ;;
   esac
