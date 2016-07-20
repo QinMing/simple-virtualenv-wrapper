@@ -5,13 +5,6 @@ A single shell function that makes Python [virtualenv](http://docs.python-guide.
 ## Intro
 
 Create new virtualenv: `ve new_env_name`
-```sh
-# $ virtualenv ~/virens/new_venv
-~$ ve new_env
-virtualenv /Users/ming/virens/new_env new_env : Is this OK? (y/n)y
-New python executable in /Users/ming/virens/new_env/bin/python
-Installing setuptools, pip, wheel...done.
-```
 
 Activate: `ve env_name`. After you activate a venv once in a perticular folder, your venv name is remembered. Next time you can simply type `ve` in that folder to quickly activate the same venv.
 
