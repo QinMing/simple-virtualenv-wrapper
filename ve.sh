@@ -100,13 +100,17 @@ ve() {
           virtualenv $venv_path $*
         fi
       fi
-      source $actv
-      echo "\"$venv_name\" is now activated."
+      if [ -s $actv ]; then
+        source $actv
+        echo "\"$venv_name\" is now activated."
+      fi
 
       # update history file
       local match=`cat $HISTORY_FILE | grep "$PWD:::"`
       if [ -z $match ]; then # if empty string
         echo "$PWD:::$venv_name" >> $HISTORY_FILE
+
+        echo "\"$venv_name\" is now activated."
         echo "Next time, you can just type \`ve\` in this folder to activate $venv_name"
       fi
       return
