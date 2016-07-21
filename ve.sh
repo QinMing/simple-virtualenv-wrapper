@@ -19,13 +19,12 @@ ve() {
   case "$1" in
 
     "")
-      local match=`cat $HISTORY_FILE | grep "$PWD:::"`
-      if [ -z $match ]; then # if empty string
+      # -o only the matching part
+      # -e pattern
+      local right_part=`grep "$PWD:::" $HISTORY_FILE | grep -o -e ":::.*$"`
+      if [ -z $right_part ]; then # if empty string
         ve -h
       else
-        # -o only the matching part
-        # -e pattern
-        local right_part=`echo $match | grep -o -e ":::.*"`
         # Truncate the first three ':', then activate virtualenv
         ve ${right_part:3}
       fi
@@ -100,16 +99,18 @@ ve() {
           virtualenv $venv_path $*
         fi
       fi
-      if [ -s $actv ]; then
+      if [ -s $actv ]; then  # now, is the `activate` file there
         source $actv
-        echo "\"$venv_name\" is now activated."
 
-        # update history file
-        local match=`cat $HISTORY_FILE | grep "$PWD:::"`
-        if [ -z $match ]; then # if empty string
+        local right_part=`grep "$PWD:::" $HISTORY_FILE | grep -o -e ":::.*$"`
+        if [[ "$right_part" != ":::$venv_name" ]]; then  # venv name different
+          if [[ -n $right_part ]]; then   # if non-empty string, remove old line
+            echo "Changing venv for this folder. { ${right_part:3} => $venv_name }"
+            printf "%s\n" `grep -v "$PWD:::" $HISTORY_FILE` > $HISTORY_FILE
+          else
+            echo "\"$venv_name\" is now activated."
+          fi
           echo "$PWD:::$venv_name" >> $HISTORY_FILE
-
-          echo "\"$venv_name\" is now activated."
           echo "Next time, you can just type \`ve\` in this folder to activate $venv_name"
         fi
       fi
