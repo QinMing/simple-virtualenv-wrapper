@@ -113,11 +113,14 @@ ve() {
         while
           local right_part=`grep "$key:::" $HISTORY_FILE | grep -o -e ":::.*$"`
 
-          if [ -n "$right_part" ]; then
-            if [ "$right_part" != ":::$venv_name" ]; then  # if non-empty && diff string
-              echo "Changing venv for this folder. { ${right_part:3} => $venv_name }"
-              printf "%s\n" `grep -v "$PWD:::" $HISTORY_FILE` > $HISTORY_FILE  # remove line
+          if [ -n "$right_part" ]; then  # if non-empty, meaning there is entry in history
+            if [ "$right_part" != ":::$venv_name" ]; then  # if diff string
+              # Change the value under `key` in history file
+              echo "Changing venv for \"$key\": { ${right_part:3} => $venv_name }."
+              printf "%s\n" `grep -v "$key:::" $HISTORY_FILE` > $HISTORY_FILE  # remove line
+              echo "$key:::$venv_name" >> $HISTORY_FILE
             else
+              # Do nothing
               echo "\"$venv_name\" is now activated."
             fi
             return
@@ -126,11 +129,11 @@ ve() {
           local key=`dirname $key`
           [ "$key" != "/" ]
         do :; done
-        printf "%s\n" `grep -v "$PWD:::" $HISTORY_FILE` > $HISTORY_FILE
+        # Create new entry in history file
         echo "$PWD:::$venv_name" >> $HISTORY_FILE
-        echo "Next time, you can just type \`ve\` in this folder to activate $venv_name"
-        return
-        ;;
+        echo "Next time, you can just type \`ve\` in this folder, or sub-folders, to activate $venv_name"
       fi
+      return
+      ;;
   esac
 }
