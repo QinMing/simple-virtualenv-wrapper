@@ -109,19 +109,28 @@ ve() {
       if [ -s $actv ]; then  # check the `activate` file again
         source $actv
 
-        local right_part=`grep "$PWD:::" $HISTORY_FILE | grep -o -e ":::.*$"`
-        if [[ "$right_part" != ":::$venv_name" ]]; then  # venv name different
-          if [[ -n $right_part ]]; then   # if non-empty string, remove old line
-            echo "Changing venv for this folder. { ${right_part:3} => $venv_name }"
-            printf "%s\n" `grep -v "$PWD:::" $HISTORY_FILE` > $HISTORY_FILE
-          else
-            echo "\"$venv_name\" is now activated."
+        local key=$PWD
+        while
+          local right_part=`grep "$key:::" $HISTORY_FILE | grep -o -e ":::.*$"`
+
+          if [ -n "$right_part" ]; then
+            if [ "$right_part" != ":::$venv_name" ]; then  # if non-empty && diff string
+              echo "Changing venv for this folder. { ${right_part:3} => $venv_name }"
+              printf "%s\n" `grep -v "$PWD:::" $HISTORY_FILE` > $HISTORY_FILE  # remove line
+            else
+              echo "\"$venv_name\" is now activated."
+            fi
+            return
           fi
-          echo "$PWD:::$venv_name" >> $HISTORY_FILE
-          echo "Next time, you can just type \`ve\` in this folder to activate $venv_name"
-        fi
+
+          local key=`dirname $key`
+          [ "$key" != "/" ]
+        do :; done
+        printf "%s\n" `grep -v "$PWD:::" $HISTORY_FILE` > $HISTORY_FILE
+        echo "$PWD:::$venv_name" >> $HISTORY_FILE
+        echo "Next time, you can just type \`ve\` in this folder to activate $venv_name"
+        return
+        ;;
       fi
-      return
-      ;;
   esac
 }
