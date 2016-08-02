@@ -12,7 +12,7 @@ ve() {
   fi
 
   local HISTORY_FILE=$VENV_ROOT/.history
-  if [ ! -f $HISTORY_FILE ]; then
+  if [ ! -f "$HISTORY_FILE" ]; then
     touch $HISTORY_FILE
   fi
 
@@ -51,7 +51,7 @@ ve() {
     -[dD]|--delete)
       read -p "rm -r $VENV_ROOT/$2 : Is this OK? (y/n)" -n 1 -r
       echo
-      if [[ $REPLY =~ ^[Yy]$ ]]
+      if [[ "$REPLY" =~ ^[Yy]$ ]]
       then
         rm -r $VENV_ROOT/$2
       fi
@@ -97,29 +97,41 @@ ve() {
       local venv_name=$1
       local venv_path=$VENV_ROOT/$1
       local actv=$venv_path/bin/activate
-      if [ ! -s $actv ]; then  # virtualenv doesn't exist, let's create one
+      if [ ! -s "$actv" ]; then  # virtualenv doesn't exist, let's create one
         shift 1
         read -p "virtualenv $venv_path $* : Is this OK? (y/n)" -n 1 -r
         echo
-        if [[ $REPLY =~ ^[Yy]$ ]]
+        if [[ "$REPLY" =~ ^[Yy]$ ]]
         then
           virtualenv $venv_path $*
         fi
       fi
-      if [ -s $actv ]; then  # check the `activate` file again
+      if [ -s "$actv" ]; then  # check the `activate` file again
         source $actv
 
-        local right_part=`grep "$PWD:::" $HISTORY_FILE | grep -o -e ":::.*$"`
-        if [[ "$right_part" != ":::$venv_name" ]]; then  # venv name different
-          if [[ -n $right_part ]]; then   # if non-empty string, remove old line
-            echo "Changing venv for this folder. { ${right_part:3} => $venv_name }"
-            printf "%s\n" `grep -v "$PWD:::" $HISTORY_FILE` > $HISTORY_FILE
-          else
-            echo "\"$venv_name\" is now activated."
+        local key=$PWD
+        while
+          local right_part=`grep "$key:::" $HISTORY_FILE | grep -o -e ":::.*$"`
+
+          if [ -n "$right_part" ]; then  # if non-empty, meaning there is entry in history
+            if [ "$right_part" != ":::$venv_name" ]; then  # if diff string
+              # Change the value under `key` in history file
+              echo "Changing venv for \"$key\": { ${right_part:3} => $venv_name }."
+              printf "%s\n" `grep -v "$key:::" $HISTORY_FILE` > $HISTORY_FILE  # remove line
+              echo "$key:::$venv_name" >> $HISTORY_FILE
+            else
+              # Do nothing
+              echo "\"$venv_name\" is now activated."
+            fi
+            return
           fi
-          echo "$PWD:::$venv_name" >> $HISTORY_FILE
-          echo "Next time, you can just type \`ve\` in this folder to activate $venv_name"
-        fi
+
+          local key=`dirname $key`
+          [ "$key" != "/" ]
+        do :; done
+        # Create new entry in history file
+        echo "$PWD:::$venv_name" >> $HISTORY_FILE
+        echo "Next time, you can just type \`ve\` in this folder, or sub-folders, to activate $venv_name"
       fi
       return
       ;;
