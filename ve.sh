@@ -19,15 +19,22 @@ ve() {
   case "$1" in
 
     "")
-      # -o only the matching part
-      # -e pattern
-      local right_part=`grep "$PWD:::" $HISTORY_FILE | grep -o -e ":::.*$"`
-      if [ -z $right_part ]; then # if empty string
-        ve -h
-      else
-        # Truncate the first three ':', then activate virtualenv
-        ve ${right_part:3}
-      fi
+      local key=$PWD
+      while
+        # -o only the matching part
+        # -e pattern
+        local right_part=`grep "$key:::" $HISTORY_FILE | grep -o -e ":::.*$"`
+
+        if [ -n "$right_part" ]; then # if non-empty string
+          # Truncate the first three ':', then activate virtualenv
+          ve ${right_part:3}
+          return
+        fi
+
+        local key=`dirname $key`
+        [ "$key" != "/" ]
+      do :; done
+      ve -h
       return
       ;;
 
@@ -99,7 +106,7 @@ ve() {
           virtualenv $venv_path $*
         fi
       fi
-      if [ -s $actv ]; then  # now, is the `activate` file there
+      if [ -s $actv ]; then  # check the `activate` file again
         source $actv
 
         local right_part=`grep "$PWD:::" $HISTORY_FILE | grep -o -e ":::.*$"`
