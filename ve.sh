@@ -12,7 +12,7 @@ ve() {
   fi
 
   local HISTORY_FILE=$VENV_ROOT/.history
-  if [ ! -f $HISTORY_FILE ]; then
+  if [ ! -f "$HISTORY_FILE" ]; then
     touch $HISTORY_FILE
   fi
 
@@ -51,7 +51,7 @@ ve() {
     -[dD]|--delete)
       read -p "rm -r $VENV_ROOT/$2 : Is this OK? (y/n)" -n 1 -r
       echo
-      if [[ $REPLY =~ ^[Yy]$ ]]
+      if [[ "$REPLY" =~ ^[Yy]$ ]]
       then
         rm -r $VENV_ROOT/$2
       fi
@@ -97,16 +97,16 @@ ve() {
       local venv_name=$1
       local venv_path=$VENV_ROOT/$1
       local actv=$venv_path/bin/activate
-      if [ ! -s $actv ]; then  # virtualenv doesn't exist, let's create one
+      if [ ! -s "$actv" ]; then  # virtualenv doesn't exist, let's create one
         shift 1
         read -p "virtualenv $venv_path $* : Is this OK? (y/n)" -n 1 -r
         echo
-        if [[ $REPLY =~ ^[Yy]$ ]]
+        if [[ "$REPLY" =~ ^[Yy]$ ]]
         then
           virtualenv $venv_path $*
         fi
       fi
-      if [ -s $actv ]; then  # check the `activate` file again
+      if [ -s "$actv" ]; then  # check the `activate` file again
         source $actv
 
         local key=$PWD
