@@ -10,9 +10,13 @@ ve() {
   if [ ! -n "$VENV_ROOT" ]; then
     local VENV_ROOT=$HOME/virtualenvs
   fi
-
   local HISTORY_FILE=$VENV_ROOT/.history
-  if [ ! -f "$HISTORY_FILE" ]; then
+
+  if [ ! -f "$HISTORY_FILE" ]; then  # exists and is a regular file
+    if [ ! -d "$VENV_ROOT" ]; then  # exists and is a directory
+      mkdir $VENV_ROOT
+      echo "Created folder $VENV_ROOT for storing venvs."
+    fi
     touch $HISTORY_FILE
   fi
 
