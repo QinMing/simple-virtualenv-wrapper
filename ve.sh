@@ -53,7 +53,16 @@ ve() {
       ;;
 
     -[dD]|--delete)
-      read -p "rm -r $VENV_ROOT/$2 : Is this OK? (y/n)" -n 1 -r
+
+      if [ -n "$ZSH_VERSION" ]; then
+        read "REPLY?rm -r $VENV_ROOT/$2 : Is this OK? (y/n)"
+      else
+        if [ -z "$BASH_VERSION" ]; then
+          echo "Warning: probably unsupported shell. Assume using bash"
+        fi
+        read -p "rm -r $VENV_ROOT/$2 : Is this OK? (y/n)" -n 1 -r
+      fi
+
       echo
       if [[ "$REPLY" =~ ^[Yy]$ ]]
       then
@@ -101,15 +110,24 @@ ve() {
       local venv_name=$1
       local venv_path=$VENV_ROOT/$1
       local actv=$venv_path/bin/activate
+
       if [ ! -s "$actv" ]; then  # virtualenv doesn't exist, let's create one
         shift 1
-        read -p "virtualenv $venv_path $* : Is this OK? (y/n)" -n 1 -r
+        if [ -n "$ZSH_VERSION" ]; then
+          read "REPLY?virtualenv $venv_path $* : Is this OK? (y/n)"
+        else
+          if [ -z "$BASH_VERSION" ]; then
+            echo "Warning: probably unsupported shell. Assume using bash"
+          fi
+          read -p "virtualenv $venv_path $* : Is this OK? (y/n)" -n 1 -r
+        fi
         echo
         if [[ "$REPLY" =~ ^[Yy]$ ]]
         then
           virtualenv $venv_path $*
         fi
       fi
+
       if [ -s "$actv" ]; then  # check the `activate` file again
         source $actv
 
