@@ -23,6 +23,17 @@ ve() {
   case "$1" in
 
     "")
+    
+      # Just to test
+      VENV_ROOT=.venv
+      
+      if [ "${VENV_ROOT:0:1}" != "/" ]; then  # if not start with "/", store venv under current project folder
+        local actv=$PWD/$VENV_ROOT/bin/activate
+        # TODO: Create if not exist
+        source $actv
+        return
+      fi
+      
       local key=$PWD
       while
         # -o only the matching part
