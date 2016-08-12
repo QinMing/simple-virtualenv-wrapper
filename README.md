@@ -12,7 +12,7 @@ Deactivate (exit): `ve -e`
 
 List existing ones: `ve -l`
 
-Remove: `ve -d new_env`
+Remove: `ve -d env_name`
 
 Help
 ```sh
