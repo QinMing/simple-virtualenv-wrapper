@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Copyright (c) 2016 Ming Qin (覃明) <https://github.com/QinMing>
 # Open source under MIT LICENSE.
