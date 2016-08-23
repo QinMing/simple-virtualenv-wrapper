@@ -40,14 +40,14 @@ Options:
 1. `git clone` this repo and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
 
 ```sh
-VENV_ROOT=$HOME/<path to your virtualenv directory>
+
+VENV_ROOT=$HOME/<path to your virtualenv directory>  
 source $HOME/<path to ve.sh>
 ```
 
 Example:
 
 ```sh
-VENV_ROOT=$HOME/virens
 source $HOME/git/simple-virtualenv-wrapper/ve.sh
 ```
 
