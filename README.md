@@ -40,14 +40,17 @@ Options:
 1. `git clone` this repo and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
 
 ```sh
+# (Optional) Set the path to hold virtual environment data. If not set, it defaults to ~/virtualenvs.
+VENV_ROOT=$HOME/<path to your virtualenv directory>
 
-VENV_ROOT=$HOME/<path to your virtualenv directory>  
+# Load the function
 source $HOME/<path to ve.sh>
 ```
 
 Example:
 
 ```sh
+VENV_ROOT=$HOME/.myvirtualenvs  # optional
 source $HOME/git/simple-virtualenv-wrapper/ve.sh
 ```
 
