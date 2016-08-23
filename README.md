@@ -1,6 +1,6 @@
 # Simple `virtualenv` wrapper
 
-A single shell function that makes Python [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) easier to use. I'm trying to keep this project as small as possible.
+A single shell function that makes Python [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) easier to use.
 
 ## Intro
 
