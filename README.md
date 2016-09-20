@@ -4,13 +4,11 @@ A single shell function that makes Python [virtualenv](http://docs.python-guide.
 
 ## Intro
 
-Create new virtualenv: `ve new_env_name`
-
-Activate: `ve env_name`. After you activate a venv once in a perticular folder, your venv name is remembered. **Next time you can simply type `ve` in that folder to quickly activate the same venv. This also works in its sub-folders.**
+Type `ve env_name` to get started. After you activate an environment for the first time, your env name is remembered. **Next time you can simply type `ve` in that folder to quickly activate the same virtual env. This also works in its sub-folders.**
 
 Deactivate (exit): `ve -e`
 
-List existing ones: `ve -l`
+List existing virtual environments: `ve -l`
 
 Remove: `ve -d env_name`
 
