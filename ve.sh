@@ -38,7 +38,7 @@ ve() {
         local key=`dirname $key`
         [ "$key" != "/" ]
       do :; done
-      ve -h
+      $0 -h
       return
       ;;
 
@@ -53,6 +53,12 @@ ve() {
       ;;
 
     -[dD]|--delete)
+
+      if [ -z "$2" ]; then
+        echo 'Not enough argument'
+        $0 -h
+        return
+      fi
 
       if [ -n "$ZSH_VERSION" ]; then
         read "REPLY?rm -r $VENV_ROOT/$2 : Is this OK? (y/n)"
