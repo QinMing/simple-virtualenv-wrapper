@@ -38,7 +38,7 @@ ve() {
         local key=`dirname $key`
         [ "$key" != "/" ]
       do :; done
-      $0 -h
+      ve -h
       return
       ;;
 
@@ -56,7 +56,7 @@ ve() {
 
       if [ -z "$2" ]; then
         echo 'Not enough argument'
-        $0 -h
+        ve -h
         return
       fi
 
