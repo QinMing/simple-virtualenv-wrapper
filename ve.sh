@@ -61,18 +61,18 @@ ve() {
       fi
 
       if [ -n "$ZSH_VERSION" ]; then
-        read "REPLY?rm -r $VENV_ROOT/$2 : Is this OK? (y/n)"
+        read "REPLY?rm -rf $VENV_ROOT/$2 : Is this OK? (y/n)"
       else
         if [ -z "$BASH_VERSION" ]; then
           echo "Warning: probably unsupported shell. Assume using bash"
         fi
-        read -p "rm -r $VENV_ROOT/$2 : Is this OK? (y/n)" -n 1 -r
+        read -p "rm -rf $VENV_ROOT/$2 : Is this OK? (y/n)" -n 1 -r
       fi
 
       echo
       if [[ "$REPLY" =~ ^[Yy]$ ]]
       then
-        rm -r $VENV_ROOT/$2
+        rm -rf $VENV_ROOT/$2
       fi
       return
       ;;
