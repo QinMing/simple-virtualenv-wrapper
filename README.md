@@ -2,9 +2,11 @@
 
 A single shell function that makes Python [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) easier to use.
 
+Works for Mac OS and Linux.
+
 ## Intro
 
-Type `ve env_name` to get started. After you activate an environment for the first time, your env name is remembered. **Next time you can simply type `ve` in that folder to quickly activate the same virtual env. This also works in its sub-folders.**
+Type `ve env_name` to create or activate an environment. After you activate for the first time, your env name is remembered. **Next time you can simply type `ve` in that folder to quickly activate the same virtual env.** This also works in its sub-folders.
 
 Deactivate (exit): `ve -e`
 
@@ -35,21 +37,24 @@ Options:
 
 ## Installation
 1. Star this repo.
-1. `git clone` this repo and add these two lines to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
+1. `git clone` this repo and `source` the script `ve.sh`. That's it.
+1. To load it when logging in, add these to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
 
 ```sh
-# (Optional) Set the path to hold virtual environment data. If not set, it defaults to ~/virtualenvs.
-VENV_ROOT=$HOME/<path to your virtualenv directory>
-
-# Load the function
 source $HOME/<path to ve.sh>
 ```
 
 Example:
 
 ```sh
-VENV_ROOT=$HOME/.myvirtualenvs  # optional
 source $HOME/git/simple-virtualenv-wrapper/ve.sh
 ```
 
-Compatible for Mac OS and Linux, as of now.
+## Settings
+You can set an environment variable `VENV_ROOT` in `.bash_profile` to change the root directory. This is the path that holds all virtual environments.
+
+```sh
+VENV_ROOT=$HOME/.myvirtualenvs
+```
+
+If not set, it defaults to `~/virtualenvs`.
