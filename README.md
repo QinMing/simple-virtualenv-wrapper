@@ -36,9 +36,12 @@ Options:
 ```
 
 ## Installation
-1. Star this repo.
-1. `git clone` this repo and `source` the script `ve.sh`. That's it.
-1. To load it when logging in, add these to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
+1. install [virtualenv](https://docs.python-guide.org/dev/virtualenvs/#lower-level-virtualenv)
+```sh
+pip3 install virtualenv
+```
+1. Star this repo :P, and `git clone` it to a folder.
+1. Add these to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
 
 ```sh
 source $HOME/<path to ve.sh>
