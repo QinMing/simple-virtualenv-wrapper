@@ -40,8 +40,8 @@ Options:
 ```sh
 pip3 install virtualenv
 ```
-1. Star this repo :P, and `git clone` it to a folder.
-1. Add these to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
+2. Star this repo :P, and `git clone` it to a folder.
+3. Add these to your `.bash_profile` (Mac OS) or `.bashrc` (Linux).
 
 ```sh
 source $HOME/<path to ve.sh>
